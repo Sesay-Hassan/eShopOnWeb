@@ -4,7 +4,7 @@ on: [push, workflow_dispatch]
 
 env:
   RESOURCE_GROUP: rg-eshoponweb-NAME
-  LOCATION: eastus
+  LOCATION: westus # Changed region to avoid quota issue
   TEMPLATE_FILE: infra/webapp.bicep
   SUBSCRIPTION_ID: 15e3a38d-0520-4e2f-a2e5-790128418eec
   WEBAPP_NAME: eshoponweb-webapp-NAME
@@ -63,7 +63,7 @@ jobs:
           subscriptionId: ${{ env.SUBSCRIPTION_ID }}
           resourceGroupName: ${{ env.RESOURCE_GROUP }}
           template: ./bicep-template/webapp.bicep
-          parameters: 'webAppName=${{ env.WEBAPP_NAME }} location=${{ env.LOCATION }}'
+          parameters: 'webAppName=${{ env.WEBAPP_NAME }} location=${{ env.LOCATION }} sku=Standard_B1'
           failOnStdErr: false
       - name: Deploy Application
         uses: Azure/cli@v2
